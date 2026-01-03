@@ -1,0 +1,15 @@
+# Python
+.venv
+__pycache__/
+
+# MacOS
+.DS_Store
+.AppleDouble
+
+# Developing
+test.*
+
+# Telethon
+.env
+*.session-journal
+*.session
