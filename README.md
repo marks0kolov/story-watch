@@ -9,5 +9,6 @@ Telegram story watcher built on Telethon. It can sweep your active feed, mark st
 
 ## Configuration
 - `WATCH_STORIES_ENABLED`, `READ_STORIES_ENABLED`, `REACT_STORIES_ENABLED` toggle behavior
+- `CONTACTS_REFRESH_SECONDS` controls how often contact ids refresh when using `contact` selectors
 - `INCLUDED_USERS`, `EXCLUDED_USERS`, `REACTIONS_EXCLUDED` accept user ids or groups: `user`, `contact`, `channel`, `chat`, `all` (expands to user+contact+channel+chat)
 - `REACTION_EMOJI` can be a normal emoji or a custom emoji id

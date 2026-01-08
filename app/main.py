@@ -2,8 +2,12 @@ import asyncio
 
 from telethon import TelegramClient, events
 
-from app.CONFIG import TG_API_HASH, TG_API_ID, TG_SESSION, log
-from app.parse_selectors import init_policies, load_contact_user_ids
+from app.CONFIG import CONTACTS_REFRESH_SECONDS, TG_API_HASH, TG_API_ID, TG_SESSION, log
+from app.parse_selectors import (
+    init_policies,
+    load_contact_user_ids,
+    selectors_need_contacts,
+)
 from app.story_intercations import (
     watch_all_active_stories,
     handle_story_update,
@@ -22,6 +26,24 @@ def create_update_handler(
     return _handler
 
 
+async def refresh_contact_user_ids_periodically(
+    client: TelegramClient,
+    contact_user_ids,
+) -> None:
+    "periodically refresh contact ids when contact selectors are in use"
+    if not selectors_need_contacts():
+        return
+    if not CONTACTS_REFRESH_SECONDS or CONTACTS_REFRESH_SECONDS <= 0:
+        return
+
+    while True:
+        await asyncio.sleep(CONTACTS_REFRESH_SECONDS)
+        latest_ids = await load_contact_user_ids(client)
+        contact_user_ids.clear()
+        contact_user_ids.update(latest_ids)
+        log.info("Refreshed contacts (count=%d)", len(contact_user_ids))
+
+
 async def main() -> None:
     client = TelegramClient(TG_SESSION, TG_API_ID, TG_API_HASH)
 
@@ -30,6 +52,9 @@ async def main() -> None:
         validate_reaction_settings()
 
         contact_user_ids = await load_contact_user_ids(client)
+        asyncio.create_task(
+            refresh_contact_user_ids_periodically(client, contact_user_ids)
+        )
 
         # initial sweep
         await watch_all_active_stories(client, contact_user_ids)

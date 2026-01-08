@@ -27,6 +27,8 @@ REACT_STORIES_ENABLED = False # if True, reacts to stories that were watched
 
 REACTION_EMOJI = os.getenv("REACTION_EMOJI", os.getenv("REACTION_EMOJI_ID", "❤️")) # use a numeric id for custom emoji or a normal emoji character
 
+CONTACTS_REFRESH_SECONDS = 86_400 # how often to refresh contacts when using the "contact" selector; set to 0 to disable
+
 INCLUDED_USERS = [ # selectors: ints are peer ids and strings are entire groups of peers: can be either "user", "contact", "channel", "chat", "all"
     "all"
 ]
