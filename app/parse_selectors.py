@@ -36,6 +36,10 @@ def _parse_selector_list(values: Iterable[object] = []) -> tuple[Set[int], Set[s
             if s.endswith("s"):
                 s = s[:-1]
 
+            if s == "all":
+                groups.update(_SUPPORTED_GROUPS)
+                continue
+
             if s not in _SUPPORTED_GROUPS:
                 log.warning("Ignoring unknown group selector: %r", x)
                 continue

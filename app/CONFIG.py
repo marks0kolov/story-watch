@@ -27,11 +27,11 @@ REACT_STORIES_ENABLED = False # if True, reacts to stories that were watched
 
 REACTION_EMOJI = os.getenv("REACTION_EMOJI", os.getenv("REACTION_EMOJI_ID", "❤️")) # use a numeric id for custom emoji or a normal emoji character
 
-INCLUDED_USERS = [ # selectors: ints are peer ids and strings are entire groups of peers: can be either "user", "contact", "channel", "chat"
-    "contacts"
+INCLUDED_USERS = [ # selectors: ints are peer ids and strings are entire groups of peers: can be either "user", "contact", "channel", "chat", "all"
+    "all"
 ]
 
-EXCLUDED_USERS = [ # selectors: ints are peer ids and strings are entire groups of peers: can be either "user", "contact", "channel", "chat". excluded overrides included
+EXCLUDED_USERS = [ # selectors: ints are peer ids and strings are entire groups of peers: can be either "user", "contact", "channel", "chat", "all". excluded overrides included
 ]
 
 REACTIONS_EXCLUDED = [ # exclusions for reactions only, same logic as EXCLUDED USERS
