@@ -70,8 +70,9 @@ async def watch_story_ids_for_peer(
         ))
 
     log.info(
-        "Watched %d stories for peer (read=%s)",
+        "Watched %d stories for peer_id=%s (read=%s)",
         len(ids),
+        getattr(input_peer, 'user_id', getattr(input_peer, 'channel_id', getattr(input_peer, 'chat_id', 'unknown'))),
         bool(READ_STORIES_ENABLED),
     )
 
@@ -97,7 +98,11 @@ async def react_to_story_ids_for_peer(
             add_to_recent=None,
         ))
 
-    log.info("Reacted to %d stories for peer", len(ids))
+    log.info(
+        "Reacted to %d stories for peer_id=%s",
+        len(ids),
+        getattr(input_peer, 'user_id', getattr(input_peer, 'channel_id', getattr(input_peer, 'chat_id', 'unknown'))),
+    )
 
 
 async def handle_story_update(

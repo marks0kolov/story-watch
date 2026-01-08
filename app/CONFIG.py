@@ -11,6 +11,7 @@ logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
 )
 log = logging.getLogger("story_watcher")
+logging.getLogger("telethon").setLevel(logging.WARNING)
 
 # ==================================== TELEGRAM API ====================================
 TG_API_ID = int(os.getenv("TG_API_ID"))
